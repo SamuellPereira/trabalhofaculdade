@@ -1,47 +1,29 @@
-/**
- * Classe para gerenciamento de tarefas
- * Funcionalidades: Create, Read, Update, Delete e Concluir
- */
 class TaskManager {
   constructor() {
     this.tasks = [];
-    this.idCounter = 1;
+    this.id = 1;
   }
 
-  // Create
-  addTask(description) {
-    const task = { id: this.idCounter++, description, completed: false };
-    this.tasks.push(task);
-    return task;
+  addTask(title) {
+    this.tasks.push({ id: this.id++, title, completed: false });
   }
 
-  // Read
   getTasks() {
     return this.tasks;
   }
 
-  // Update
-  updateTask(id, newDescription) {
+  updateTask(id, newTitle) {
     const task = this.tasks.find(t => t.id === id);
-    if (!task) return null;
-    task.description = newDescription;
-    return task;
+    if (task) task.title = newTitle;
   }
 
-  // Delete
   deleteTask(id) {
-    const index = this.tasks.findIndex(t => t.id === id);
-    if (index === -1) return false;
-    this.tasks.splice(index, 1);
-    return true;
+    this.tasks = this.tasks.filter(t => t.id !== id);
   }
 
-  // Extra (mudança de escopo)
   completeTask(id) {
     const task = this.tasks.find(t => t.id === id);
-    if (!task) return null;
-    task.completed = true;
-    return task;
+    if (task) task.completed = true;
   }
 }
 
